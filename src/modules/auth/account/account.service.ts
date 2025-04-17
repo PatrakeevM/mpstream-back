@@ -37,7 +37,7 @@ export class AccountService {
       throw new ConflictException('Этот адрес эл.почты уже занят');
     }
 
-    const user = await this.prismaService.user.create({
+    await this.prismaService.user.create({
       data: {
         username,
         email,
@@ -46,6 +46,6 @@ export class AccountService {
       },
     });
 
-    return user;
+    return true;
   }
 }
