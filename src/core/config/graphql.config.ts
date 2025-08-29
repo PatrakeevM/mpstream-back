@@ -8,7 +8,11 @@ export function getGraphQLCongig(
   configService: ConfigService,
 ): ApolloDriverConfig {
   return {
-    playground: isDev(configService),
+    playground: isDev(configService) ? {
+      settings: {
+        'request.credentials': 'include',
+      },
+    } : false,
     path: configService.getOrThrow<string>('GRAPHQL_PREFIX'),
     autoSchemaFile: join(process.cwd(), 'src/core/grapql/schema.gql'),
     sortSchema: true,
